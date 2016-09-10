@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.admin.recodedemo.MainActivity">
+
+    <TextView
+        android:id="@+id/mText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="录音"
+        android:textSize="30sp"
+        android:layout_marginBottom="40dp"
+        android:layout_above="@+id/mButton"
+        android:layout_toStartOf="@+id/mButton"/>
+
+    <TextView
+        android:id="@+id/mTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 秒"
+        android:textSize="30sp"
+        android:layout_alignTop="@+id/mText"
+        android:layout_toEndOf="@+id/mButton"/>
+
+    <ImageButton
+        android:id="@+id/mButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ht_lued"
+        android:layout_marginBottom="39dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击播放"
+        android:id="@+id/soundButton"
+        android:background="@drawable/button_shape"
+        android:layout_above="@+id/mText"
+        android:layout_alignEnd="@+id/mText"
+        android:visibility="gone"
+        android:layout_marginBottom="50dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0秒"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        android:id="@+id/sountTime"
+        android:layout_alignTop="@+id/soundButton"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/soundButton"/>
+</RelativeLayout>
