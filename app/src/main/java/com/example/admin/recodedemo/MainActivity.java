@@ -47,12 +47,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private TextView sountTime;
     private TimerTask mTimerTask2;
     private Boolean isPause = false;
+    private int soundLength;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTimer = new Timer();
+        mTimer = new Timer(true);
         if (Build.VERSION.SDK_INT >= 23) {
             int checkCallPhonePermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECORD_AUDIO);
             if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
@@ -91,10 +92,12 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         switch (msg.what) {
                             case 1:
                                 Timestamp ts = new Timestamp(System.currentTimeMillis());
-                                long duration = (int) ((ts.getTime() - start_time.getTime()) / 1000);
+                                int duration = (int) ((ts.getTime() - start_time.getTime()) / 1000);
+                                soundLength=duration;
                                 mTime.setText(duration + "秒");
                                 break;
                         }
+                        super.handleMessage(msg);
                     }
                 };
                 mTimerTask = new TimerTask() {
@@ -197,7 +200,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.soundButton:
-                Toast.makeText(MainActivity.this, fileName, Toast.LENGTH_SHORT).show();
                 if (mPlayer==null){
                     mPlayer = new MediaPlayer();
                     try {
@@ -207,6 +209,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     }
                 }
 
+                final Timestamp tse=new Timestamp(System.currentTimeMillis());
+
                 final Handler handler = new Handler() {
                     @Override
                     public void handleMessage(Message msg) {
@@ -214,10 +218,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             case 1:
                                 Timestamp tss = new Timestamp(System.currentTimeMillis());
                                 if(mPlayer!=null){
-                                    sountTime.setText(mPlayer.getCurrentPosition() / 1000 + "秒");
+                                    sountTime.setText((int)((tss.getTime()-tse.getTime())/1000) + "秒");
                                 }
                                 break;
                         }
+                        super.handleMessage(msg);
                     }
                 };
 
@@ -237,6 +242,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         if (mPlayer != null) {
                             soundButton.setText("播放结束");
                             mPlayer = null;
+                            mTimerTask2.cancel();
                         }
                     }
                 });
