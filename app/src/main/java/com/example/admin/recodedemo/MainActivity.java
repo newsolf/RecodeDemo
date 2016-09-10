@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             case 1:
                                 Timestamp ts = new Timestamp(System.currentTimeMillis());
                                 int duration = (int) ((ts.getTime() - start_time.getTime()) / 1000);
-                                soundLength=duration;
+                                soundLength = duration;
                                 mTime.setText(duration + "秒");
                                 break;
                         }
@@ -166,6 +166,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             mediaRecorder.release();
             mediaRecorder = null;
         }
+        if (mTimer != null && mTimerTask != null && mTimerTask2 != null) {
+            mTimer = null;
+            mTimerTask = null;
+            mTimerTask2 = null;
+        }
         super.onDestroy();
     }
 
@@ -199,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.soundButton:
-                if (mPlayer==null){
+                if (mPlayer == null) {
                     mPlayer = new MediaPlayer();
                     try {
                         mPlayer.setDataSource(fileName);
@@ -208,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     }
                 }
 
-                final Timestamp tse=new Timestamp(System.currentTimeMillis());
+                final Timestamp tse = new Timestamp(System.currentTimeMillis());
 
                 final Handler handler = new Handler() {
                     @Override
@@ -216,8 +221,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         switch (msg.what) {
                             case 1:
                                 Timestamp tss = new Timestamp(System.currentTimeMillis());
-                                if(mPlayer!=null){
-                                    sountTime.setText(soundLength-(int)((tss.getTime()-tse.getTime())/1000) + "秒");
+                                if (mPlayer != null) {
+                                    sountTime.setText(soundLength - (int) ((tss.getTime() - tse.getTime()) / 1000) + "秒");
                                 }
                                 break;
                         }
@@ -240,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     public void onCompletion(MediaPlayer mp) {
                         if (mPlayer != null) {
                             soundButton.setText("播放结束");
-                            sountTime.setText(soundLength+"秒");
+                            sountTime.setText(soundLength + "秒");
                             mPlayer = null;
                             mTimerTask2.cancel();
                         }
