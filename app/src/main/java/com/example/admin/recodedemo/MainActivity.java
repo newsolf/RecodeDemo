@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 };
                 mTimer.schedule(mTimerTask, 1000, 1000);
 
-
                 break;
             case MotionEvent.ACTION_UP:
                 mTimerTask.cancel();
@@ -218,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             case 1:
                                 Timestamp tss = new Timestamp(System.currentTimeMillis());
                                 if(mPlayer!=null){
-                                    sountTime.setText((int)((tss.getTime()-tse.getTime())/1000) + "秒");
+                                    sountTime.setText(soundLength-(int)((tss.getTime()-tse.getTime())/1000) + "秒");
                                 }
                                 break;
                         }
@@ -241,6 +240,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     public void onCompletion(MediaPlayer mp) {
                         if (mPlayer != null) {
                             soundButton.setText("播放结束");
+                            sountTime.setText(soundLength+"秒");
                             mPlayer = null;
                             mTimerTask2.cancel();
                         }
