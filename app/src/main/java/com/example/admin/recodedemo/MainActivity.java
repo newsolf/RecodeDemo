@@ -127,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     private void init() {
-
         mButton = (ImageButton) findViewById(R.id.mButton);
         mText = (TextView) findViewById(R.id.mText);
         mTime = (TextView) findViewById(R.id.mTime);
